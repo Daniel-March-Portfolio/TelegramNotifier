@@ -1,7 +1,6 @@
 import os
 
 from pytest import fixture
-from rest_framework.test import APIClient
 
 
 @fixture
@@ -21,8 +20,3 @@ def test_chat_id() -> int:
         raise ValueError('TEST_TELEGRAM_BOT_CHAT_ID is not a number')
     test_telegram_bot_chat_id = int(test_telegram_bot_chat_id)
     return test_telegram_bot_chat_id
-
-
-@fixture
-def api_client():
-    return APIClient()
