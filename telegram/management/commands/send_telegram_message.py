@@ -2,6 +2,7 @@ from uuid import UUID
 
 import requests
 from django.core.management.base import BaseCommand
+from rest_framework.generics import get_object_or_404
 
 from telegram.exceptions import TelegramChatNotFoundException, \
     TelegramBotNotFoundException, TelegramBotBlockedException, \
@@ -22,9 +23,13 @@ class Command(BaseCommand):
         text = options['text']
         bot_uuid = options['bot_uuid']
 
-        bot = TelegramBot.objects.get(uuid=bot_uuid)
+        bot = self._get_bot(bot_uuid)
         message_id = self._send_message(chat_id, text, bot)
         return message_id
+
+    def _get_bot(self, bot_uuid: UUID) -> TelegramBot:
+        bot = get_object_or_404(TelegramBot, uuid=bot_uuid)
+        return bot
 
     def _send_message(self, chat_id: int, text: str, bot: TelegramBot) -> int:
         url = f'https://api.telegram.org/bot{bot.token}/sendMessage'

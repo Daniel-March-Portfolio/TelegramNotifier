@@ -1,0 +1,1 @@
+from notification.views._notify import NotifyAPIView
