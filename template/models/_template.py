@@ -8,7 +8,7 @@ from constants import TemplateWidgets
 class Template(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid4)
 
-    tag = models.CharField(max_length=64)
+    tag = models.CharField(max_length=64, unique=True)
     body = models.TextField()
 
     created_at = models.DateTimeField(auto_now_add=True)
