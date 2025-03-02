@@ -1,0 +1,5 @@
+from telegram.exceptions._chat_not_found import TelegramChatNotFoundException
+from telegram.exceptions._bot_not_found import TelegramBotNotFoundException
+from telegram.exceptions._bot_blocked import TelegramBotBlockedException
+from telegram.exceptions._user_deactivated import TelegramUserDeactivatedException
+from telegram.exceptions._bad_message import TelegramBadMessageException
