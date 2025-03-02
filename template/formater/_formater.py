@@ -3,7 +3,7 @@ from typing import Any
 from rest_framework.generics import get_object_or_404
 
 from constants import TemplateWidgets
-from template.formater.widgets import ProgressBarWidget
+from template.formater.widgets import ProgressBarWidget, WidgetInterface
 from template.models import Template
 
 
@@ -25,13 +25,20 @@ class TemplateFormater:
         text = text.format(**template_variables)
         return text
 
-    @staticmethod
     def _format_widgets(
+            self,
             text: str, widgets: set[str], template_variables: dict[str, Any]
     ) -> str:
-        for widget in widgets:
-            match widget:
-                case TemplateWidgets.progress_bar:
-                    progress_bar_widget = ProgressBarWidget()
-                    text = progress_bar_widget.format(text, template_variables)
+        for widget_placeholder in widgets:
+            widget = self._widgets_factory(widget_placeholder)
+            text = widget.format(text, template_variables)
         return text
+
+    def _widgets_factory(self, widget_placeholder: str) -> WidgetInterface:
+        match widget_placeholder:
+            case TemplateWidgets.progress_bar:
+                return ProgressBarWidget()
+            case _:
+                raise NotImplementedError(
+                    f'Widget {widget_placeholder} is not implemented'
+                )
