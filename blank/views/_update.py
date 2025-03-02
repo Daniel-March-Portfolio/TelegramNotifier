@@ -4,15 +4,16 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from blank.models import Blank
-from blank.serializers import SendBlankSerializer
-from telegram.management.commands.send_telegram_message import Command
+from blank.serializers import UpdateBlankSerializer
+from telegram.management.commands.update_telegram_message import Command
 from template.formater import TemplateFormater
 
 
-class SendAPIView(APIView):
+class UpdateAPIView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = SendBlankSerializer(data=request.data)
+        serializer = UpdateBlankSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        message_id = serializer.validated_data["message_id"]
         blank_tag = serializer.validated_data["blank_tag"]
         template_variables = serializer.validated_data["template_variables"]
 
@@ -23,8 +24,9 @@ class SendAPIView(APIView):
         text = template_formater.format(variables)
 
         command = Command()
-        message_id = command.handle(
+        command.handle(
             text=text,
+            message_id=message_id,
             chat_id=blank.chat_id,
             bot_uuid=blank.bot.uuid,
         )

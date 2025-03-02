@@ -1,1 +1,2 @@
-from blank.serializers._prepared_notification import PreparedNotificationSerializer
+from blank.serializers._send import SendBlankSerializer
+from blank.serializers._update import UpdateBlankSerializer

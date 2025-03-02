@@ -9,13 +9,14 @@ from template.models import Template
 
 
 @pytest.mark.django_db
-def test_api_send_blank_notification(api_client: APIClient):
+def test_api_update_blank_notification(api_client: APIClient):
     test_template_body = 'Test {text} {blank_text}'
     test_template_tag = 'template_tag'
     test_blank_tag = 'blank_tag'
     blank_text = 'blank_text'
     test_text = '123'
     chat_id = 123
+    message_id = 1
 
     template = Template(
         tag=test_template_tag,
@@ -44,13 +45,14 @@ def test_api_send_blank_notification(api_client: APIClient):
     ).save()
 
     with mock.patch(
-            'telegram.management.commands.send_telegram_message.Command.handle'
+            'telegram.management.commands.update_telegram_message.Command.handle'
     ) as mock_command:
         mock_command.return_value = 1
         response = api_client.post(
-            '/blanks/send/',
+            '/blanks/update/',
             {
                 "blank_tag": test_blank_tag,
+                "message_id": message_id,
                 "template_variables": {
                     "text": test_text
                 },
@@ -65,6 +67,7 @@ def test_api_send_blank_notification(api_client: APIClient):
     )
     mock_command.assert_called_once_with(
         chat_id=chat_id,
+        message_id=message_id,
         text=expected_text,
         bot_uuid=bot.uuid,
     )

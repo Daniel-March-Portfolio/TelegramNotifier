@@ -3,3 +3,5 @@ from telegram.exceptions._bot_not_found import TelegramBotNotFoundException
 from telegram.exceptions._bot_blocked import TelegramBotBlockedException
 from telegram.exceptions._user_deactivated import TelegramUserDeactivatedException
 from telegram.exceptions._bad_message import TelegramBadMessageException
+from telegram.exceptions._message_not_found import TelegramMessageNotFoundException
+from telegram.exceptions._message_not_modified import TelegramMessageNotModifiedException
