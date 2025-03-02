@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'config',
     'template',
     'telegram',
+    'blank',
 ]
 
 MIDDLEWARE = [

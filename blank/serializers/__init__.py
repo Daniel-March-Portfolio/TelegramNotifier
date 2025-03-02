@@ -1,0 +1,1 @@
+from blank.serializers._prepared_notification import PreparedNotificationSerializer
