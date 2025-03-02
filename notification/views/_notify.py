@@ -17,7 +17,7 @@ class NotifyAPIView(APIView):
         bot_uuid = serializer.validated_data["bot_uuid"]
 
         template_formater = TemplateFormater(template_tag)
-        text = template_formater.format(**template_variables)
+        text = template_formater.format(template_variables)
 
         command = Command()
         command.handle(
