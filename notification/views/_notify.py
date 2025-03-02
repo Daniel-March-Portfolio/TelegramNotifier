@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from notification.serializers import NotificationSerializer
 from telegram.management.commands.send_telegram_message import Command
-from template.models import Template
+from template.formater import TemplateFormater
 
 
 class NotifyAPIView(APIView):
@@ -16,8 +16,8 @@ class NotifyAPIView(APIView):
         chat_id = serializer.validated_data["chat_id"]
         bot_uuid = serializer.validated_data["bot_uuid"]
 
-        template = Template.objects.get(tag=template_tag)
-        text = template.body.format(**template_variables)
+        template_formater = TemplateFormater(template_tag)
+        text = template_formater.format(**template_variables)
 
         command = Command()
         command.handle(
