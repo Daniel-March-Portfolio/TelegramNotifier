@@ -31,10 +31,14 @@ curl 'http://127.0.0.1:8000/blanks/send/' --header 'Content-Type: application/js
 
 ## Preview
 
+### Bot editor
 ![Bot editor](https://github.com/Daniel-March-Portfolio/.github/blob/main/images/TelegramNotifier/bot_edit.png)
 
+### Template editor
 ![Template editor](https://github.com/Daniel-March-Portfolio/.github/blob/main/images/TelegramNotifier/template_edit.png)
 
+### Blank editor
 ![Blank editor](https://github.com/Daniel-March-Portfolio/.github/blob/main/images/TelegramNotifier/blank_edit.png)
 
+### Message example
 ![Message example](https://github.com/Daniel-March-Portfolio/.github/blob/main/images/TelegramNotifier/message_example.png)
