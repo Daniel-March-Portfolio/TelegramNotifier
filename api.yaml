@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: TelegramNotifier
+  description: TelegramNotifier
+  version: 1.0.0
+servers:
+  - url: 'https://127.0.0.1:8000'
+paths:
+  /notifications/notify/:
+    post:
+      summary: Notify
+      operationId: notify
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Notification'
+      responses:
+        '200':
+          description: OK
+  /blanks/send/:
+    post:
+      summary: Send
+      operationId: send
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlankSend'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageInfo'
+  /blanks/update/:
+    post:
+      summary: Send
+      operationId: send
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlankUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageInfo'
+
+components:
+  schemas:
+    Notification:
+      type: object
+      properties:
+        template_tag:
+          type: string
+        template_variables:
+          type: object
+        bot_uuid:
+          type: UUID
+        chat_id:
+          type: integer
+      required:
+        - template_tag
+        - bot_uuid
+        - chat_id
+    BlankSend:
+        type: object
+        properties:
+            blank_tag:
+              type: string
+            template_variables:
+              type: object
+        required:
+            - blank_tag
+    BlankUpdate:
+        type: object
+        properties:
+            blank_tag:
+              type: string
+            message_id:
+              type: integer
+            template_variables:
+              type: object
+        required:
+            - blank_tag
+            - message_id
+    MessageInfo:
+        type: object
+        properties:
+            message_id:
+              type: integer
